@@ -49,18 +49,18 @@ stages:
 
 #################################################################################
 
-- stage: UnitTest
-  displayName: UnitTesting
+- stage: Unit_Test
+  displayName: 'Run Unit Testing'
+  
   jobs:
-  - job: Testing
-    displayName: Testing
-    steps:
-    - task: VSTest@2
-      inputs:
-        testSelector: 'testAssemblies'
-        testAssemblyVer2: |
-          **\*test*.js
-          !**\*TestAdapter.dll
-          !**\obj\**
-        searchFolder: '$(System.DefaultWorkingDirectory)'
+    - job: 
+      pool: 
+        vmImage: 'ubuntu-latest'
+      steps:      
+      - task: Npm@1
+        inputs:
+          command: 'custom'
+          workingDir: '$(system.defaultworkingdirectory)'
+          customCommand: 'test'
+    
     
