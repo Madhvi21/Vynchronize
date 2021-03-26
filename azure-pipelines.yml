@@ -60,13 +60,14 @@ stages:
       pool: 
         vmImage: 'ubuntu-latest'
       steps:
-      - task:  Npm@1 
-       
+      - script: 
+         npm install jasmine-node 
+      
+      - task: Npm@1
         inputs:
-          command: custom
+          command: 'custom'
           workingDir: '$(system.defaultworkingdirectory)'
-          verbose: false
-          customCommand: test
+          customCommand: 'test'
         
    
   
