@@ -59,11 +59,21 @@ stages:
     - job: 
       pool: 
         vmImage: 'ubuntu-latest'
-      steps:      
-      - task: Npm@1
-        inputs:
-          command: 'custom'
-          workingDir: '$(system.defaultworkingdirectory)'
-          customCommand: 'test'
+      steps:  
+      
+        - task: CopyFiles@2
+          inputs:
+            SourceFolder: '$(system.defaultworkingdirectory)'
+            Contents: '**'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        
+        - task: Npm@1
+          inputs:
+            command: 'custom'
+            workingDir: '$(Build.ArtifactStagingDirectory)'
+            customCommand: 'test'
+        
+         
+      
     
     
