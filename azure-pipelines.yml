@@ -23,6 +23,7 @@ stages:
 
     - script: |
         npm install 
+        npm install jasmine-node
         npm run build --if-present
         npm test
       displayName: 'npm install and build'
@@ -52,6 +53,7 @@ stages:
 
 - stage: Unit_Test
   displayName: 'Run Unit Testing'
+  
   
   jobs:
     - job: 
