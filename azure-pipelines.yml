@@ -61,13 +61,20 @@ stages:
         vmImage: 'ubuntu-latest'
       steps:
       - script: 
-         npm install jasmine-node 
+         npm install jasmine-node
+         npm install -g jshint 
       
       - task: Npm@1
         inputs:
           command: 'custom'
           workingDir: '$(system.defaultworkingdirectory)'
           customCommand: 'test'
+
+      - task: Npm@1
+        inputs:
+              command: 'custom'
+              workingDir: '$(System.defaultworkingdirectory)'
+              customCommand: 'test'
         
    
   
