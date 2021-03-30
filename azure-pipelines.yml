@@ -70,7 +70,30 @@ stages:
           workingDir: '$(system.defaultworkingdirectory)'
           customCommand: 'test'
 
-        
+##########################################################################
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: $(environmentName)
+    pool:
+      vmImage: ubuntu-latest
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Azure Web App Deploy: Tx-testing'
+            inputs:
+              azureSubscription: 273566d6-3760-45b6-9d09-79b9fea4713f
+              appType: webAppLinux
+              appName: Tx-Testing
+              runtimeStack: 'NODE|10.14'
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              startUpCommand: 'npm run start'  
    
   
         
