@@ -85,15 +85,27 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: Tx-testing'
+          
+          - task: AzureRmWebAppDeployment@4
             inputs:
-              azureSubscription: Pay-As-You-Go(273566d6-3760-45b6-9d09-79b9fea4713f)
-              appType: webAppLinux
-              appName: Tx-Testing
-              runtimeStack: 'NODE|10.14'
-              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
-              startUpCommand: 'npm run start'  
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Pay-As-You-Go(1)(273566d6-3760-45b6-9d09-79b9fea4713f)'
+              appType: 'webAppLinux'
+              WebAppName: 'Tx-testing'
+              deployToSlotOrASE: true
+              ResourceGroupName: 'Tx-Testing'
+              SlotName: 'production'
+              packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              startUpCommand: 'npm run start'
+          #- task: AzureWebApp@1
+          #  displayName: 'Azure Web App Deploy: Tx-testing'
+          #  inputs:
+           #   azureSubscription: Pay-As-You-Go(273566d6-3760-45b6-9d09-79b9fea4713f)
+            #  appType: webAppLinux
+            #  appName: Tx-Testing
+             # runtimeStack: 'NODE|10.14'
+             # package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+             # startUpCommand: 'npm run start'  
    
   
         
